@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.2",
+    "@kinde-oss/kinde-nodejs-sdk": "^1.2.3",
+    "@kinde-oss/kinde-typescript-sdk": "^2.9.1",
     "@prisma/client": "^5.17.0",
     "bun": "^1.1.20",
     "dotenv": "^16.4.5",
