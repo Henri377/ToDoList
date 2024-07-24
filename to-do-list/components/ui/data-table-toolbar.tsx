@@ -6,7 +6,15 @@ import { Table } from "@tanstack/react-table"
 import { Button } from "./button"
 import { Input } from "./input"
 
-import { priorities, statuses } from "../../data/data"
+import {statuses } from "../../data/data"
+import {  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,} from "./select"
+
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -28,6 +36,23 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+
+    <Select onValueChange={(value) => table.getColumn("status")?.setFilterValue(value)}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select a status" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Status</SelectLabel>
+          {statuses.map((status) => (
+            <SelectItem key={status.value} value={status.value}>
+              {status.label}
+            </SelectItem>))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+
+      
     
         {isFiltered && (
           <Button
