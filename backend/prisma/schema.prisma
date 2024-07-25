@@ -14,11 +14,10 @@ datasource db {
 }
 
 model TodoList {
-  id        String   @id @default(uuid())
+  id        Int   @id @default(autoincrement())
   title     String
-  task      String?
-  status    Status?  @default(TODO)
-  priority  Priority? @default(LOW)
+  status    Status  @default(TODO)
+  priority  Priority @default(LOW)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

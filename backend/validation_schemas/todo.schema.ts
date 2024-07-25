@@ -1,11 +1,10 @@
 const { z } = require('zod');
 
 const TodoSchema = z.object({
-  id: z.string().optional(), 
+  id: z.number().optional(), 
   title: z.string().min(1, { message: "Title must not be empty" }), 
-  task: z.string().optional(), 
-  status: z.enum(["BACKLOG", "TODO","PROGRESS","DONE","CANCELED"]).optional().default('BACKLOG'),
-  priority: z.enum(["MEDIUM", "HIGH","LOW"]).optional().default('LOW'),
+  status: z.enum(["BACKLOG", "TODO","PROGRESS","DONE","CANCELED"]).default('BACKLOG'),
+  priority: z.enum(["MEDIUM", "HIGH","LOW"]).default('LOW'),
   createdAt: z.date().optional(), 
   updatedAt: z.date().optional(), 
 });

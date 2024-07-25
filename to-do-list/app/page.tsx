@@ -1,29 +1,21 @@
-import { promises as fs } from "fs"
-import path from "path"
-import { Metadata } from "next"
-import Image from "next/image"
-import { z } from "zod"
 
+
+import { Task } from "@/data/schema"
 import { columns } from "../components/ui/columns"
 import { DataTable } from "../components/ui/data-table"
 import { UserNav } from "../components/ui/user-nav"
-import { taskSchema } from "../data/schema"
+import next from "next"
 
-export const metadata: Metadata = {
-  title: "Tasks",
-  description: "A task and issue tracker build using Tanstack Table.",
-}
 
 // Simulate a database read for tasks.
 async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "./data/tasks.json")
-  )
-
-  const tasks = JSON.parse(data.toString())
-
-  return z.array(taskSchema).parse(tasks)
+  const res = await fetch("http://localhost:3000/api/todo", { cache: 'no-store' } )
+  const data = await res.json() as Task[]
+  
+  return data
 }
+
+
 
 export default async function Home() {
 
@@ -31,9 +23,9 @@ export default async function Home() {
 
   return (
     <>
-      <div className="md:hidden">
+      <div >
       </div>
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+      <div className=" h-full flex-1 flex-col space-y-8 p-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>

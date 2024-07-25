@@ -9,29 +9,23 @@ import {
     StopwatchIcon,
   } from "@radix-ui/react-icons"
   
-  export const labels = [
-    {
-      value: "bug",
-      label: "Bug",
-    },
-    {
-      value: "feature",
-      label: "Feature",
-    },
-    {
-      value: "documentation",
-      label: "Documentation",
-    },
-  ]
+  export interface Task {
+    id: string
+    title: string
+    status: string
+    priority: string
+    createdAt: string
+    updatedAt: string
+  }
   
   export const statuses = [
     {
-      value: "backlog",
+      value: "BACKLOG",
       label: "Backlog",
       icon: QuestionMarkCircledIcon,
     },
     {
-      value: "todo",
+      value: "TODO",
       label: "Todo",
       icon: CircleIcon,
     },
@@ -41,12 +35,12 @@ import {
       icon: StopwatchIcon,
     },
     {
-      value: "done",
+      value: "DONE",
       label: "Done",
       icon: CheckCircledIcon,
     },
     {
-      value: "canceled",
+      value: "CANCELED",
       label: "Canceled",
       icon: CrossCircledIcon,
     },
@@ -55,17 +49,17 @@ import {
   export const priorities = [
     {
       label: "Low",
-      value: "low",
+      value: "LOW",
       icon: ArrowDownIcon,
     },
     {
       label: "Medium",
-      value: "medium",
+      value: "MEDIUM",
       icon: ArrowRightIcon,
     },
     {
       label: "High",
-      value: "high",
+      value: "HIGH",
       icon: ArrowUpIcon,
     },
   ]
