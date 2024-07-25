@@ -84,8 +84,8 @@ export function DataTableToolbar<TData>({
   };
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
+    <div className="flex items-center justify-between flex-wrap">
+      <div className="flex flex-1 items-center space-x-2 sm:w-auto w-full">
         <Input
           placeholder="Filter tasks..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -95,7 +95,7 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
 
-        <Select
+        <Select 
           onValueChange={(value) =>
             table.getColumn("status")?.setFilterValue(value)
           }
@@ -113,11 +113,11 @@ export function DataTableToolbar<TData>({
               ))}
             </SelectGroup>
           </SelectContent>
-        </Select>
+        </Select >
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">Add Task</Button>
+            <Button variant="outline" className="w-full sm:w-auto">Add Task</Button>
           </DialogTrigger>
 
           <DialogContent className="sm:max-w-[425px]">

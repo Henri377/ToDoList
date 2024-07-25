@@ -74,7 +74,7 @@ export function DataTable<TData, TValue>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
+                {headerGroup.headers.filter((header) => header.id !== 'id').map((header) => {
                   return (
                     <TableHead key={header.id} colSpan={header.colSpan}>
                       {header.isPlaceholder
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                 >
-                  {row.getVisibleCells().map((cell) => (
+                  {row.getVisibleCells().filter(cell => cell.column.id !== 'id').map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,

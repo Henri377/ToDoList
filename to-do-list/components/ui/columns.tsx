@@ -12,7 +12,7 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Task" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div>{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -37,6 +37,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
+
       const status = statuses.find(
         (status) => status.value === row.getValue("status")
       )
@@ -87,6 +88,9 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => {
+      
+      return <DataTableRowActions row={row} />
+    },
   },
 ]

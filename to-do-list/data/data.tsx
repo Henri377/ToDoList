@@ -30,7 +30,7 @@ import {
       icon: CircleIcon,
     },
     {
-      value: "in progress",
+      value: "PROGRESS",
       label: "In Progress",
       icon: StopwatchIcon,
     },

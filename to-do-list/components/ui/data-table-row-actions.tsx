@@ -68,11 +68,29 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
     setIsDialogOpen(true);
   };
 
+  const handleDelete = async() => {
+    const id = row.getValue('id');
+    try{
+      await fetch(`http://localhost:3000/api/todo/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        });
+        
+      window.location.reload()
+      
+    } 
+    catch(error) {
+      console.error('Error:', error);
+    }
+  }
+
   const handleFinish = async () => {
     const id = row.getValue('id');
 
     try{
-      const response = await fetch(`http://localhost:3000/api/todo/${id}/done`, {
+      await fetch(`http://localhost:3000/api/todo/${id}/done`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -130,9 +148,9 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => handleFinish()}>Finish</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleFinish}>Finish</DropdownMenuItem>
           <DropdownMenuItem onClick={handleEditClick}>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
