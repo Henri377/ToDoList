@@ -7,6 +7,13 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './*.html',
+    './*/**/*.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+
+    './app/**/*.{ts,tsx,js,jsx}',
+    './app/**/*.html',
+    './*.html'
 	],
   prefix: "",
   theme: {
@@ -74,6 +81,7 @@ const config = {
       },
     },
   },
+
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 

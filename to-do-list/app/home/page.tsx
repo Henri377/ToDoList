@@ -4,7 +4,8 @@ import { DataTable } from "@/components/ui/data-table";
 import { UserNav } from "@/components/ui/user-nav";
 import { Task } from "@/data/schema"
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import "../../app/globals.css";
+
 
 
 
@@ -32,9 +33,9 @@ export const Home = async () => {
     const tasks = await getTasks()
     const token = cookies().get('access_token')?.value ?? '';
 
-    if (!token) {
+    /* if (!token) {
       redirect('https://todoapppss-101bc3b96116.herokuapp.com/api/login');
-    }
+    }*/
 
     return (
         <>

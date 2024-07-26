@@ -86,7 +86,7 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
         credentials: 'include'
         });
         
-      
+      window.location.reload();
     } 
     catch(error) {
       console.error('Error:', error);
@@ -109,7 +109,7 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
         credentials: 'include'
         });
         
-      
+      window.location.reload();
     } 
     catch(error) {
       console.error('Error:', error);
@@ -117,11 +117,7 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
   }
 
   async function getUserId(token: string): Promise<string | null | undefined> {
-    if (!token) {
-      console.error("Token is empty");
-      return null;
-    }  
-  
+   
     const res = await fetch("https://todoapppss-101bc3b96116.herokuapp.com/api/user", {
           method: 'GET',
           credentials: "include",
