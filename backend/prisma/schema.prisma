@@ -15,6 +15,7 @@ datasource db {
 
 model TodoList {
   id        Int   @id @default(autoincrement())
+  userId    String 
   title     String
   status    Status  @default(TODO)
   priority  Priority @default(LOW)

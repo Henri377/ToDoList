@@ -28,6 +28,7 @@ import {
 
 import { Label } from "./label";
 import { SetStateAction, useState } from "react";
+import { parseCookies } from 'nookies';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -56,18 +57,49 @@ export function DataTableToolbar<TData>({
     setPriority(value);
   };
 
+
+async function getUserId(token: string): Promise<string | null | undefined> {
+  if (!token) {
+    console.error("Token is empty");
+    return null;
+  }  
+
+  const res = await fetch("http://localhost:3000/api/user", {
+        credentials: "include",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Cookie': `access_token=${token}`
+        },
+  });
+  if (res.ok) {
+    const user = await res.json();
+    return user.id;
+  }
+
+  return undefined;
+}
+
   const handleSaveChanges = async () => {
+    const cookies = parseCookies();
+    const token = cookies['access_token'];
+    const userid = await getUserId(token);
     const data = {
       title,
       status,
       priority,
+      userId: userid
     };
   
     try {
+      
       const response = await fetch('http://localhost:3000/api/todo', {
         method: 'POST',
+        credentials: "include",
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
+          'Cookie': `access_token=${token}`
         },
         body: JSON.stringify(data),  
   

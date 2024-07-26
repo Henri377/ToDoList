@@ -36,6 +36,9 @@ import {
 import { Input } from "./input";
 import { Task } from "@/data/schema";
 
+import { parseCookies } from 'nookies';
+
+
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
@@ -70,12 +73,17 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
 
   const handleDelete = async() => {
     const id = row.getValue('id');
+    const cookies = parseCookies();
+    const token = cookies['access_token'];
     try{
       await fetch(`http://localhost:3000/api/todo/${id}`, {
         method: 'DELETE',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
+          'Cookie': `access_token=${token}`
         },
+        credentials: 'include'
         });
         
       window.location.reload()
@@ -88,13 +96,18 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
 
   const handleFinish = async () => {
     const id = row.getValue('id');
+    const cookies = parseCookies();
+    const token = cookies['access_token'];
 
     try{
       await fetch(`http://localhost:3000/api/todo/${id}/done`, {
         method: 'PATCH',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
+          'Cookie': `access_token=${token}`
         },
+        credentials: 'include'
         });
         
       window.location.reload()
@@ -105,29 +118,69 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
     }
   }
 
+  async function getUserId(token: string): Promise<string | null | undefined> {
+    if (!token) {
+      console.error("Token is empty");
+      return null;
+    }  
+  
+    const res = await fetch("http://localhost:3000/api/user", {
+          credentials: "include",
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Cookie': `access_token=${token}`
+          },
+    });
+    if (res.ok) {
+      const user = await res.json();
+      return user.id;
+    }
+  
+    return undefined;
+  }
+
   const handleEditSave = async () => {
+    
+    const cookies = parseCookies();
+    const token = cookies['access_token'];
+  
+    const id = row.getValue('id');
+    const userid = await getUserId(token);
     const data = {
       title,
       status,
       priority,
+      userId: userid
     };
 
-  
-    const id = row.getValue('id');
-  
+    console.log("userid:", userid);
+
+    
     try {
+      console.log(JSON.stringify(data));
       const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
+          'Cookie': `access_token=${token}`
         },
-        body: JSON.stringify(data),  
-  
+        body: JSON.stringify(data)
       });
+
+      console.log("Response status:", response.status);
+      const responseBody = await response.json();
+      console.log("Response body:", responseBody);
   
       if (response.ok) {
         setIsDialogOpen(false);
         window.location.reload()
+      }
+
+      else{
+        console.log(response.body);
       }
 
       } catch (error) {
