@@ -11,7 +11,7 @@ import { redirect } from 'next/navigation';
 async function getTasks() {
     const cookieStore = cookies();
     const token = cookieStore.get('access_token')?.value ?? '';
-    const res = await fetch("http://localhost:3000/api/todo", {
+    const res = await fetch("https://todoapppss-101bc3b96116.herokuapp.com/api/todo", {
       cache: "no-cache",
       credentials: "include",
       headers: {
@@ -33,7 +33,7 @@ export const Home = async () => {
     const token = cookies().get('access_token')?.value ?? '';
 
     if (!token) {
-      redirect('http://localhost:3000/api/login');
+      redirect('https://todoapppss-101bc3b96116.herokuapp.com/api/login');
     }
 
     return (

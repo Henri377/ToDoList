@@ -76,7 +76,7 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
     const cookies = parseCookies();
     const token = cookies['access_token'];
     try{
-      await fetch(`http://localhost:3000/api/todo/${id}`, {
+      await fetch(`https://todoapppss-101bc3b96116.herokuapp.com/api/todo/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -86,7 +86,6 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
         credentials: 'include'
         });
         
-      window.location.reload()
       
     } 
     catch(error) {
@@ -100,7 +99,7 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
     const token = cookies['access_token'];
 
     try{
-      await fetch(`http://localhost:3000/api/todo/${id}/done`, {
+      await fetch(`https://todoapppss-101bc3b96116.herokuapp.com/api/todo/${id}/done`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -110,7 +109,6 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
         credentials: 'include'
         });
         
-      window.location.reload()
       
     } 
     catch(error) {
@@ -124,7 +122,8 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
       return null;
     }  
   
-    const res = await fetch("http://localhost:3000/api/user", {
+    const res = await fetch("https://todoapppss-101bc3b96116.herokuapp.com/api/user", {
+          method: 'GET',
           credentials: "include",
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -154,12 +153,9 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
       userId: userid
     };
 
-    console.log("userid:", userid);
-
     
     try {
-      console.log(JSON.stringify(data));
-      const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
+      const response = await fetch(`https://todoapppss-101bc3b96116.herokuapp.com/api/todo/${id}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -170,17 +166,10 @@ const [priority, setPriority] = useState<Task['priority']>(row.getValue('priorit
         body: JSON.stringify(data)
       });
 
-      console.log("Response status:", response.status);
-      const responseBody = await response.json();
-      console.log("Response body:", responseBody);
   
       if (response.ok) {
         setIsDialogOpen(false);
         window.location.reload()
-      }
-
-      else{
-        console.log(response.body);
       }
 
       } catch (error) {

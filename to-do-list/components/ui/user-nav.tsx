@@ -8,7 +8,7 @@
   export function UserNav() {
     
     const handleClick = async () => {
-      window.location.href = 'http://localhost:3000/api/logout'
+      window.location.href = 'https://todoapppss-101bc3b96116.herokuapp.com/api/logout'
     };
   
     return (

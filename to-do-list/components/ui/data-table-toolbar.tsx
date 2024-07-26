@@ -64,7 +64,7 @@ async function getUserId(token: string): Promise<string | null | undefined> {
     return null;
   }  
 
-  const res = await fetch("http://localhost:3000/api/user", {
+  const res = await fetch("https://todoapppss-101bc3b96116.herokuapp.com/api/user", {
         credentials: "include",
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -93,7 +93,7 @@ async function getUserId(token: string): Promise<string | null | undefined> {
   
     try {
       
-      const response = await fetch('http://localhost:3000/api/todo', {
+      const response = await fetch('https://todoapppss-101bc3b96116.herokuapp.com/api/todo', {
         method: 'POST',
         credentials: "include",
         headers: {
